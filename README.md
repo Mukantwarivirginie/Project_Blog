@@ -6,7 +6,7 @@ virginie mukantwari
 
 
 ## Description
-
+this project is web application show the user pitches and to see others people pitches one user can add more than pictches
 
 ## Technology used
 
