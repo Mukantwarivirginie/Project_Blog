@@ -43,9 +43,12 @@ class Pitches(db.Model):
     description = db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     comments = db.relationship('Comments',backref = 'commen',lazy="dynamic")
-
-
-
+    @classmethod
+    def get_pitches(cls):
+       pitches = pitch.query.filter_by().all()
+        
+        
+         
     def __repr__(self):
         return f'Pitches {self.name}'       
 
