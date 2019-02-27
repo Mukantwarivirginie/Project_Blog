@@ -9,11 +9,18 @@ from wtforms import StringField,PasswordField,BooleanField,SubmitField
 
 class ReviewForm(FlaskForm):
 
-    title = StringField('Review title',validators=[Required()])
-    review = TextAreaField('Movie review', validators=[Required()])
+    title = StringField(' title',validators=[Required()])
+    review = TextAreaField(' review', validators=[Required()])
     submit = SubmitField('Submit')
 
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.',validators = [Required()])
     submit = SubmitField('Submit')   
 
+
+
+class pitchForm(FlaskForm):
+
+    category = StringField(' categoty',validators=[Required()])
+    pitch = TextAreaField(' pitch', validators=[Required()])
+    submit = SubmitField('Submit')
