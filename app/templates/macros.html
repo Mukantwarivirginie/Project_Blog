@@ -1,19 +1,22 @@
 {% macro displayPitchList(Pitches) %}
 
-    {% for pitch in pitches%}
+    {% for pitch in pitches %}
+    {% if pitch.user.profile.p_list %}
         <!-- <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 movie-card"> -->
      <img src="{{ pitch.user.profile }}" alt="{{ movie.title }} poster" class="img-responsive">
-<h3>{{pitch.content}}</h3>
+<h2>{{pitch.content}}</h2>
 <button>Upvote</button>
 <button>Downvote</button>
-{%eslse %}
+{%else %}
+
+
 <img src="static/photos/no dp.png" alt="">
 <p>{{pitch.user.username}}</p>
-<h3>{{pitch.content}}</h3>
+<h2>{{pitch.content}}</h2>
 <button>Upvote</button>
 <button>Downvote</button>
 
 
-{%endif%}
+{% endif %} 
 {% endfor %} 
 {% endmacro %}

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
+        <!-- <meta charset="utf-8">
         {% if title %}
         <title> {{ title }}</title>
         {% else %}
-        <title> Welcome to the best Movie Review website </title>
-        {% endif %}
-        {% extends 'base.html'%}
+        <title> Welcome to the best Movie Review website </title> -->
+         <!-- {% endif %} -->
+         {% extends 'base.html'%}  
         {% import 'macros.html' as macro%}
         <!-- Styles block -->
         {% block styles%}
@@ -22,7 +22,8 @@
 {% block content %}
 <ul>
      
-{{ macro.displayPitchList(pitch)}}  
+{{ macro.displayPitchList(pitches)}}  
+<!-- <a href="/pitch/new">add pitch</a> -->
        
 </ul>
 

@@ -17,7 +17,7 @@ from .. import db
 
 from flask import render_template,redirect,url_for, flash,request
 from flask_login import login_user
-from ..models import User
+from ..models import User,Pitches
 # from .forms import LoginForm,RegistrationForm
 from .. import db,photos
 
@@ -27,6 +27,8 @@ from .. import db,photos
 # Views
 @main.route('/')
 def index():
+    all_pitches = Pitches.get_pitches()
+
 
 #     '''
 #     View root page function that returns the index page and its data
@@ -44,7 +46,7 @@ def index():
 #     if search_movie:
 #         return redirect(url_for('main.search',movie_name=search_movie))
 #     else:
-    return render_template('index.html', title = title )
+    return render_template('index.html', title = title , pitches=all_pitches)
 
 
 # @main.route('/movie/<int:movie_id>')
