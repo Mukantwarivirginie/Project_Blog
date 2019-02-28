@@ -1,25 +1,15 @@
+
 from flask_login import login_user,logout_user,login_required
-from flask import render_template,request,redirect,url_for,abort
+from flask import render_template,request,flash,redirect,url_for,abort
 from ..models import  User
-
-
 from flask_login import login_required,current_user
 from . import main
-# from ..request import get_movies,get_movie,search_movie
-from .forms import ReviewForm, PitchForm
-# from ..models import Review
-from flask import render_template,redirect,url_for
-from ..models import User
-# from .forms import RegistrationForm
-
-from .forms import ReviewForm,UpdateProfile
-from .. import db
-
-from flask import render_template,redirect,url_for, flash,request
-from flask_login import login_user
+from .forms import  PitchForm
 from ..models import User,Pitches
-# from .forms import LoginForm,RegistrationForm
+from flask_login import login_user
 from .. import db,photos
+
+
 
 
 
@@ -38,28 +28,28 @@ def index():
 
 
 
-      return render_template('index.html', title = title , pitches=all_pitches)
-@main.route('/pitch',methods = ['GET','POST'])
+      return render_template('index.html', title = title , all_pitches=all_pitches)
+
+
+@main.route('/newpitch/',methods = ['GET','POST'])
 @login_required
-def add_pitch():
+def newpitch():
+
     form = PitchForm()
-    if form .validate_on_submit():
-        #  category = form.category.data
-         pitch=form.pitch.data
-         new_pitch = Pitches(description=pitch)
-         db.session.add(new_pitch)
-         db.session.commit()
-         return redirect(url_for('main.index'))
-    #  all_pitches = pitch.get_pitches()
-    title='cause'
-    return render_template('pitches.html',title = title,pitch_form = form)
+  
+    if form.validate_on_submit():
+       
+        pitch= form.pitch.data
 
+        # Updated review instance
+        newpitch = Pitches(pitches = pitch ,user_id=current_user.id)
 
+        # save review method
+        newpitch.save_pitch()
+        return redirect(url_for('.index',pitch = pitch))
 
-
-
-
-
+   
+    return render_template('newpitch.html',newpitch=form)
 
 
 
@@ -106,3 +96,6 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))  
+
+
+

@@ -1,17 +1,17 @@
+
 from flask_wtf import FlaskForm
-from wtforms import StringField,TextAreaField,SubmitField
+from wtforms import StringField,TextAreaField,SubmitField,PasswordField,BooleanField
 from wtforms.validators import Required
 from wtforms import ValidationError
 
 
-from wtforms import StringField,PasswordField,BooleanField,SubmitField
 
 
-class ReviewForm(FlaskForm):
+# class ReviewForm(FlaskForm):
 
-    title = StringField(' title',validators=[Required()])
-    review = TextAreaField(' review', validators=[Required()])
-    submit = SubmitField('Submit')
+#     title = StringField(' title',validators=[Required()])
+#     review = TextAreaField(' review', validators=[Required()])
+#     submit = SubmitField('Submit')
 
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.',validators = [Required()])
@@ -21,6 +21,6 @@ class UpdateProfile(FlaskForm):
 
 class PitchForm(FlaskForm):
 
-    category = StringField(' category',validators=[Required()])
+    
     pitch = TextAreaField(' pitch', validators=[Required()])
     submit = SubmitField('Submit')

@@ -1,5 +1,12 @@
 {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
 {%block content%}
-{{ wtf.quick_form(pitch_form) }}
+{% for pitch in all_pitches %}
+    
+    <h2> {{ pitch.pitch}} </h2>
+   
+
+{% endfor %}
+
 {%endblock%}
+

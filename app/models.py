@@ -1,7 +1,8 @@
-from flask_login import UserMixin
-from werkzeug.security import generate_password_hash,check_password_hash
 from . import db
+from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
 from . import login_manager
+
 
 @login_manager.user_loader
 def load_user(id):
@@ -16,9 +17,10 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True,index = True)
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
+    pitches = db.relationship("Pitches", backref="user", lazy = "dynamic")
     password_secure = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
-    pitches = db.relationship('Pitches',backref = 'pitches',lazy="dynamic")
+    
 
 
     @property
@@ -35,25 +37,33 @@ class User(UserMixin,db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+
        
 class Pitches(db.Model):
     __tablename__ = 'pitches'
 
     id = db.Column(db.Integer,primary_key = True)
-    description = db.Column(db.String(255))
+    pitches = db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     comments = db.relationship('Comments',backref = 'commen',lazy="dynamic")
 
+    
+    def save_pitch(self):
+        db.session.add(self)
+        db.session.commit()
 
     @classmethod
-    def get_pitches(cls):
-       pitches = Pitches.query.filter_by().all()
-       return pitches
+    def get_pitches(id):
+       pitchess = Pitches.query.all()
+       return pitchess
         
         
          
     def __repr__(self):
-        return f'User {self.name}'       
+        return f'User {self.name}'   
+
+   
 
 class Comments(db.Model):
     __tablename__ = 'comments'
@@ -65,7 +75,7 @@ class Comments(db.Model):
     
 
     def __repr__(self):
-        return f'Pitches {self.name}'           
+        return f'User {self.name}'            
 
 
 

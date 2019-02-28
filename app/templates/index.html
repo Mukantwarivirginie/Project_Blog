@@ -21,14 +21,43 @@
         <!-- Content block -->
 {% block content %}
 <ul>
-     
-{{ macro.displayPitchList(pitches)}}  
-<!-- <a href="/pitch/new">add pitch</a> -->
+    <div class="container">
+        <p> Pickup lines pitch</p>
+        <p>If men were landing pages, I’d only want to convert on you.</p>
+        <hr>
+        <p> Product pitch</p>
+        <p>Because it doesn't have to be so ambiguous.</p>
+        <hr>
+        <p> Interview pitch</p>
+        <p>Clarify your job target. ...</p>
+        <hr>
+        <P> Promotion pitch</P>
+        <p>A  relationship with a sales promotion agency normally starts with a pitch.</p>
+        <br><br>
+        <a href= "{{url_for('main.newpitch')}}"> New pitch</a>
+    </div>   
+
+ 
+
+{% for pitch in all_pitches %}
+    
+    <h2> {{ pitch.pitches}} </h2>
+    <!-- <p> {{ pitch.user }}</p> -->
+
+{% endfor %}
+
+
+
+<!-- {{ macro.displayPitchList(pitches)}}   -->
+
        
 </ul>
 
 
 {% endblock%}
+
+
+
 
     </body>
 </html>
