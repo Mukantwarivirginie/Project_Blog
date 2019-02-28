@@ -9,8 +9,10 @@ virginie mukantwari
 this project is web application show the user pitches and to see others people pitches one user can add more than pictches
 
 ## Technology used
- flask
+ 
  python3.6 manage.shell
+
+ flask
 
 
 ### Contact Information
