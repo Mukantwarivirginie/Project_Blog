@@ -10,7 +10,7 @@ this project is web application show the user pitches and to see others people p
 
 ## Technology used
  
- python3.6 manage.shell
+ python3.6 manage.py shell
 
  flask
 
