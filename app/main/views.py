@@ -39,18 +39,20 @@ def index():
 
 
       return render_template('index.html', title = title , pitches=all_pitches)
-@main.route('/pitch')
+@main.route('/pitch',methods = ['GET','POST'])
 @login_required
 def add_pitch():
     form = PitchForm()
     if form .validate_on_submit():
-         category = form.content.data
-         new_pitch = pitch(content=pitch,category = category, user=current_user)
-         new_pitch.save_pitch()
+        #  category = form.category.data
+         pitch=form.pitch.data
+         new_pitch = Pitches(description=pitch)
+         db.session.add(new_pitch)
+         db.session.commit()
          return redirect(url_for('main.index'))
     #  all_pitches = pitch.get_pitches()
     title='cause'
-    return render_template('pitches.html',title = title,pitch_form = form,user=current_user)
+    return render_template('pitches.html',title = title,pitch_form = form)
 
 
 
