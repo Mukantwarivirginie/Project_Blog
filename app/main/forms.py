@@ -19,7 +19,7 @@ class UpdateProfile(FlaskForm):
 
 
 
-class pitchForm(FlaskForm):
+class PitchForm(FlaskForm):
 
     category = StringField(' categoty',validators=[Required()])
     pitch = TextAreaField(' pitch', validators=[Required()])

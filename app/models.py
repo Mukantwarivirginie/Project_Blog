@@ -48,6 +48,7 @@ class Pitches(db.Model):
     @classmethod
     def get_pitches(cls):
        pitches = Pitches.query.filter_by().all()
+       return pitches
         
         
          
