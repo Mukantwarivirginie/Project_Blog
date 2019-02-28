@@ -12,7 +12,7 @@ this project is web application show the user pitches and to see others people p
  
  python3.6 manage.py shell
 
- flask
+ flask-migrate
 
 
 ### Contact Information
