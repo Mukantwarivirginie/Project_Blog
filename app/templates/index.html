@@ -17,46 +17,46 @@
 <!-- Content block -->
 
     </head>
-    <!-- <body>
-        Content block
+   
+    <body>
+        <!-- Content block -->
 {% block content %}
 <ul>
     <div class="container">
-        <p> Pickup lines pitch</p>
+        <p> Pickup lines blogs</p>
         <p>If men were landing pages, I’d only want to convert on you.</p>
         <hr>
-        <p> Product pitch</p>
+        <p> Product blogs</p>
         <p>Because it doesn't have to be so ambiguous.</p>
         <hr>
-        <p> Interview pitch</p>
+        <p> Interview blogs</p>
         <p>Clarify your job target. ...</p>
         <hr>
-        <P> Promotion pitch</P>
+        <P> blogs Promotion </P>
         <p>A  relationship with a sales promotion agency normally starts with a pitch.</p>
         <br><br>
-        <a href= "{{url_for('main.newpitch')}}"> New pitch</a>
+        <a href= "{{url_for('main.newblogs')}}"> New blogs</a>
     </div>   
 
  
 
-{% for blog in all_pitches %}
+{% for blogs in all_blogs %}
     
-    <h2> {{ blog.pitches}} </h2>
-    
+    <h2> {{ blogs.blogs}} </h2>
+    <!-- <p> {{ pitch.user }}</p> -->
+
 {% endfor %}
 
 
 
-<!-- {{ macro.displayPitchList(pitches)}}   -->
+<!-- {{ macro.displayBlogsList(blogs)}}   -->
 
        
 </ul>
 
 
-<!-- {% endblock%} -->
+{% endblock%}
 
-
- -->
 
     </body>
 </html>

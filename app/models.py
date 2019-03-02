@@ -55,7 +55,7 @@ class Post_blog(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_blog(id):
+    def get_blogs(id):
         blog = Post_blog.query.all()
         return blog
         
@@ -82,12 +82,12 @@ class Comments(db.Model):
 
 
           
-# class subscription(db.Model):
-#     __tablename__ = 'subsription'
+class subscription(db.Model):
+    __tablename__ = 'subsription'
 
-#     id = db.Column(db.Integer,primary_key = True)
-#     Post_blog = db.Column(db.String(255))
-#     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    id = db.Column(db.Integer,primary_key = True)
+    Post_blog = db.Column(db.String(255))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
   
 
          

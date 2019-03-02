@@ -20,7 +20,7 @@ from .. import db,photos
 # Views
 @main.route('/')
 def index():
-      all_Post_blog=Post_blog .get_blog()
+      all_Post_blog=Post_blog .get_blogs()
 
 
 
@@ -31,25 +31,25 @@ def index():
       return render_template('index.html', title = title , all_Post_blog=all_Post_blog)
 
 
-@main.route('/newblog/',methods = ['GET','POST'])
+@main.route('/newblogs/',methods = ['GET','POST'])
 @login_required
-def newblog():
+def newblogs():
 
     form = blogForm()
   
     if form.validate_on_submit():
        
-        pitch= form.Post_blog.data
+        blogs= form.Post_blog.data
 
         # Updated review instance
-        newpitch = Post_blog( Post_blog= blog,user_id=current_user.id)
+        newblogs= Post_blog( Post_blog= blogs,user_id=current_user.id)
 
         # save review method
-        newblog.save_blog()
-        return redirect(url_for('.index',blog = blog))
+        newblogs.save_blogs()
+        return redirect(url_for('.index',blogs = blogs))
 
    
-    return render_template('newblog.html',newblog=form)
+    return render_template('newblogs.html',newblogs=form)
 
 
 
