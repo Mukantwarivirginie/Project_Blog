@@ -1,13 +1,12 @@
 # Project Name
-Project-Pitch
+Project_Blog
 
 ## Author name
 virginie mukantwari
 
 
 ## Description
-this project is web application show the user pitches and to see others people pitches one user can add more than pictches
-
+this project is to create a personal blogging website and share your opinion and others users can read and comment onthem
 ## Technology used
  
  python3.6 manage.py shell
@@ -22,8 +21,7 @@ this project is web application show the user pitches and to see others people p
 virgm2020@gmail.com
 
 ### link to live site on GitHub Pages
-
-https://github.com/Mukantwarivirginie/Project-Pitch
+https://github.com/Mukantwarivirginie/Project_Blog
 
 
 ### Copyrght and license information

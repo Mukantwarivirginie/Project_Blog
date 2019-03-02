@@ -19,8 +19,8 @@ class UpdateProfile(FlaskForm):
 
 
 
-class PitchForm(FlaskForm):
+class BlogForm(FlaskForm):
 
     
-    pitch = TextAreaField(' pitch', validators=[Required()])
+    blog = TextAreaField(' blog', validators=[Required()])
     submit = SubmitField('Submit')

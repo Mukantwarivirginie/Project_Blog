@@ -17,7 +17,8 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True,index = True)
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    pitches = db.relationship("Pitches", backref="user", lazy = "dynamic")
+    post_blog=db.relationship('Post_blog', backref='user',lazy='dynamic')
+    comment=db.relationship('Comments', backref='user', lazy='dynamic') 
     password_secure = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
     
@@ -40,23 +41,24 @@ class User(UserMixin,db.Model):
 
 
        
-class Pitches(db.Model):
-    __tablename__ = 'pitches'
+class Post_blog(db.Model):
+    __tablename__ = 'post_blog'
 
     id = db.Column(db.Integer,primary_key = True)
-    pitches = db.Column(db.String(255))
+    Post_blog = db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    comments = db.relationship('Comments',backref = 'commen',lazy="dynamic")
+    comments = db.relationship('Comments',backref = 'post',lazy="dynamic")
 
     
-    def save_pitch(self):
+    def save_blog(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_pitches(id):
-       pitchess = Pitches.query.all()
-       return pitchess
+    def get_blog(id):
+        blog = Post_blog.query.all()
+        return blog
+        
         
         
          
@@ -71,11 +73,25 @@ class Comments(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     comment = db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    post_blog_id = db.Column(db.Integer,db.ForeignKey('post_blog.id'))
     
 
     def __repr__(self):
-        return f'User {self.name}'            
+        return f'User {self.name}'    
+
+
+
+          
+# class subscription(db.Model):
+#     __tablename__ = 'subsription'
+
+#     id = db.Column(db.Integer,primary_key = True)
+#     Post_blog = db.Column(db.String(255))
+#     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+  
+
+         
+
 
 
 

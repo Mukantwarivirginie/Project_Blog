@@ -4,8 +4,8 @@ from flask import render_template,request,flash,redirect,url_for,abort
 from ..models import  User
 from flask_login import login_required,current_user
 from . import main
-from .forms import  PitchForm
-from ..models import User,Pitches
+from .forms import  BlogForm
+from ..models import User,Post_blog
 from flask_login import login_user
 from .. import db,photos
 
@@ -20,7 +20,7 @@ from .. import db,photos
 # Views
 @main.route('/')
 def index():
-      all_pitches = Pitches.get_pitches()
+      all_Post_blog=Post_blog .get_blog()
 
 
 
@@ -28,28 +28,28 @@ def index():
 
 
 
-      return render_template('index.html', title = title , all_pitches=all_pitches)
+      return render_template('index.html', title = title , all_Post_blog=all_Post_blog)
 
 
-@main.route('/newpitch/',methods = ['GET','POST'])
+@main.route('/newblog/',methods = ['GET','POST'])
 @login_required
-def newpitch():
+def newblog():
 
-    form = PitchForm()
+    form = blogForm()
   
     if form.validate_on_submit():
        
-        pitch= form.pitch.data
+        pitch= form.Post_blog.data
 
         # Updated review instance
-        newpitch = Pitches(pitches = pitch ,user_id=current_user.id)
+        newpitch = Post_blog( Post_blog= blog,user_id=current_user.id)
 
         # save review method
-        newpitch.save_pitch()
-        return redirect(url_for('.index',pitch = pitch))
+        newblog.save_blog()
+        return redirect(url_for('.index',blog = blog))
 
    
-    return render_template('newpitch.html',newpitch=form)
+    return render_template('newblog.html',newblog=form)
 
 
 
