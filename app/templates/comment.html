@@ -18,7 +18,9 @@
 </div>
 
     <div class="panel-body">
-<h1><p>"{{ comment.comment}}"</p></h1>
+{% for word in comment %}
+<p>{{word.comment}}</p>
+{% endfor %}
     </div>
 
         </div>
