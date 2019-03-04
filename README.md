@@ -16,7 +16,7 @@ this project is to create a personal blogging website and share your opinion and
 
 ## Contact information
   
-0786679517
+  0786679517
 
 virgm2020@gmail.com
 
