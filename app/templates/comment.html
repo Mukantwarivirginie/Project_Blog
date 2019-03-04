@@ -11,12 +11,8 @@
 
     {% for commen in comments %}
      <p>{{commen.comment}}</p>
-     {% endfor %}
-
-
-   
-
-
-
+    
+<a href="{{url_for('main.delete_comment', id=commen.id)}}">delete</a>
+{% endfor %}
 </div>
 {% endblock %}

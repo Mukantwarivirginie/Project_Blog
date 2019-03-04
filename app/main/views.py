@@ -66,7 +66,7 @@ def newblogs():
         new_subscriber=Subscription(name=name,email=email)
         db.session.add(new_subscriber)
         db.session.commit()
-        mail_message("Thans","email/welcome_user",new_subscriber.email,user=new_subscriber)
+        mail_message("Thanks","email/welcome_user",new_subscriber.email,user=new_subscriber)
         return redirect(url_for('main.index'))
       quote=get_quote()
       posts=Post_blog.get_blogs()
@@ -96,6 +96,44 @@ def single_post(id):
     post=Post.query.filter_by(id=id).first()
     comments=Comments.get_comments(id=id)
     return render_template('single_post.html',post=post,comments=comments)   
+
+
+
+
+
+
+
+
+@main.route('/delete/comment/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def delete_comment(id):
+  form=CommentForm()
+  comment=Comments.query.filter_by(id=id).first()
+ 
+
+  if comment is not None:
+     comment.delete_comment()
+     return redirect(url_for('main.index'))
+     return render_template('comment.html', form=form)
+
+@main.route('/delete/post/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def delete_post(id):
+    post=Post.query.filter_by(id=id).first()
+ 
+
+    if post is not None:
+       post.delete_post(id)
+       return redirect(url_for('main.index'))
+
+ 
+
+
+
+
+
+
+
 
 
 

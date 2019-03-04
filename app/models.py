@@ -83,7 +83,9 @@ class Comments(db.Model):
     def __repr__(self):
         return f'User {self.name}'    
 
-
+    def delete_comment(self):
+       db.session.delete(self)
+       db.session.commit()
 
           
 class subscription(db.Model):
