@@ -106,14 +106,14 @@ def add_comment(id):
   form=CommentForm()
   if form.validate_on_submit():
      comment=form.comment.data
-     new_comment=Comments(comment=comment)
+     new_comment=Comments(comment=comment,post_blog=post)
      db.session.add(new_comment)  
      db.session.commit() 
 
   comment=Comments.query.filter_by(post_blog_id=id).all()   
      
   
-  return render_template('comment.html',comment=comment, comment_form=form)
+  return render_template('comment.html',comments=comment, comment_form=form)
 
 
 

@@ -7,28 +7,16 @@
 
   {{wtf.quick_form(comment_form)}}
 
-    {% for comment in comment%}
-<div class="prof">
-<div class="col-lg-3">
+  <h1 class="panel-title">Comments</h1>
 
-    <div class="panel panel-info">
-    <div class="panel-heading">
-    <h1 class="panel-title">Comments</h1>
-
-</div>
-
-    <div class="panel-body">
-{% for word in comment %}
-<p>{{word.comment}}</p>
-{% endfor %}
-    </div>
-
-        </div>
-</div>
-</div>
+    {% for commen in comments %}
+     <p>{{commen.comment}}</p>
+     {% endfor %}
 
 
-{% endfor %}
+   
+
+
 
 </div>
 {% endblock %}
