@@ -1,25 +1,18 @@
+{% extends 'base.html'%}  
+{% import 'macros.html' as macro%}
+<!-- Styles block -->
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- <meta charset="utf-8">
-        {% if title %}
-        <title> {{ title }}</title>
-        {% else %}
-        <title> Welcome to the best Movie Review website </title> -->
-         <!-- {% endif %} -->
-         {% extends 'base.html'%}  
-        {% import 'macros.html' as macro%}
-        <!-- Styles block -->
+      
+        
         {% block styles%}
            {{ super() }}
            <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
         {% endblock %}
-<!-- Content block -->
 
-    </head>
-   
     <body>
-        <!-- Content block -->
+     
 {% block content %}
 <ul>
     <div class="container">
@@ -35,31 +28,28 @@
         <P> blogs Promotion </P>
         <p>Blog promotion is a must if you want your work to be seen, shared, and and widely consumed.</p>
         <br><br>
-        <a href= "{{url_for('main.newblogs')}}"> New blogs</a>
+        <a href= "/post/new"> New blogs</a>
     </div>   
 
  
 
-{% for blogs in all_blogs %}
+
+    <p>{{macro.displayBlogsList(post_blog)}}</p>
+
+   
+ 
     
-    <h2> {{ blogs.blogs}} </h2>
-    <!-- <p> {{ pitch.user }}</p> -->
-    <a href="/pitch/{{blogs.id}}"> View blogs</a>
-    {% for comment in pitch.comment %}
-    <p>Comment:{{comment.comment}}</p>
-    
-{% endfor %}
-<p><a class="btn btn-light btn-xl sr-button" href="{{url_for('main.comment',id = blogs.id)}}"> Add comment here</a></p> 
-{% endfor %}
 
 
-<!-- {{ macro.displayBlogsList(blogs)}}   -->
+
+    <a href=> View blogs</a>
+   
 
        
-</ul>
 
 
-{% endblock%}
+
+{% endblock %}
 
 
     </body>

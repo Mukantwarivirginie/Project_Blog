@@ -1,15 +1,14 @@
-{% macro displayBlogsList(blogs) %}
+{% macro displayBlogsList(post_blog) %}
 
-    {% for blogs in blogs %}
+    {% for blog in post_blog %}
+
+    <p>{{blog.post_blog}}</p>
    
-<h2>{{blogs.description}}</h2>
-<button>Upvote</button>
-<button>Downvote</button>
 
 
 
 
-{% endfor %} 
+  {% endfor %} 
 {% endmacro %}
 
 
@@ -18,14 +17,3 @@
 
 
 
-{% macro displayComments(comments) %}
-
-    {% for comment in comments %}
-   
-<h2>{{comment.comment}}</h2>
-
-
-
-
-{% endfor %} 
-{% endmacro %}

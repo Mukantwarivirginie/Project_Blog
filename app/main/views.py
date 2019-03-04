@@ -8,7 +8,7 @@ from ..email import mail_message
 
 from .forms import UpdateProfile
 from . import main
-from .forms import  BlogForm,SubscriptionForm
+from .forms import  BlogForm,SubscriptionForm,AddPostForm
 from ..models import User,Post_blog
 from flask_login import login_user
 from .. import db,photos
@@ -49,7 +49,7 @@ def newblogs():
         mail_message("Thans","email/welcome_user",new_subscriber.email,user=new_subscriber)
         return redirect(url_for('main.index'))
       quote=get_quote()
-      posts=Blogs.get_posts()
+      posts=Post_blog.get_blogs()
       title="Home| Welcome to blog"
       return render_template('index.html',title=title,quote=quote,posts=posts,subscription_form=form)
         # blogs= form.Post_blog.data
@@ -70,29 +70,7 @@ def single_post(id):
     return render_template('single_post.html',post=post,comments=comments)   
 
 
-@main.route('/delete/comment/<int:id>', methods = ['GET', 'POST'])
-@login_required
-def delete_comment(id):
-    comment=Comment.query.filter_by(id=id).first()
- 
 
-    if comment is not None:
-       comment.delete_comment()
-       return redirect(url_for('main.index'))
-
-
-  
-@main.route('/delete/post/<int:id>', methods = ['GET', 'POST'])
-@login_required
-def delete_post(id):
-    post=Post.query.filter_by(id=id).first()
- 
-
-    if post is not None:
-       post.delete_post(id)
-       return redirect(url_for('main.index'))
-
- 
 
   
 @main.route('/post/new', methods = ['GET', 'POST'])
@@ -101,23 +79,22 @@ def add_post():
     form = AddPostForm()
     
     if form.validate_on_submit():
-        title = form.title.data
+        # title = form.title.data
 
-        post= form.content.data
-        image=form.image.data
+        post_blog= form.post_blog.data
+       
 
-        new_post = Post(content=post, title = title,image=image)
-        new_post.save_post()
+        new_post = Post_blog(post_blog=post_blog)
+        new_post.save_blog()
 
-        subscribers=Subscription.query.all()
-        for subscriber in subscribers:
-           mail_message("New Post","email/send_email",subscriber.email,user=subscriber,post=new_post)
+        
+       
 
         return redirect(url_for('main.index'))
 
     
 
-    title = 'Add Post| MeBlog'    
+    title = 'Add Post| blogs'    
     return render_template('post.html', title = title, post_form = form)
 
 @main.route('/new/comment/<int:id>', methods = ['GET','POST'])
