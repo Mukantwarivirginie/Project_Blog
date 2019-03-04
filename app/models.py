@@ -45,7 +45,7 @@ class Post_blog(db.Model):
     __tablename__ = 'post_blog'
 
     id = db.Column(db.Integer,primary_key = True)
-    Post_blog = db.Column(db.String(255))
+    post_blog = db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     comments = db.relationship('Comments',backref = 'post',lazy="dynamic")
 
@@ -59,9 +59,13 @@ class Post_blog(db.Model):
         blog = Post_blog.query.all()
         return blog
         
-        
-        
-         
+        def delete_post(self,id):
+             comments = Comments.query.filter_by(id = id).all()
+        for comments in comments:
+             db.session.delete(comment)
+             db.session.commit()
+             db.session.delete(self)
+             db.session.commit()
     def __repr__(self):
         return f'User {self.name}'   
 
@@ -90,8 +94,17 @@ class subscription(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
   
 
-         
+class Quote:
+    '''
+    quote class to define quote Objects
+    '''
 
+    def __init__(self,id, author, content):
+        self.id =id
+        self.author = author
+        self.content= content
+        
+       
 
 
 

@@ -44,9 +44,13 @@
     
     <h2> {{ blogs.blogs}} </h2>
     <!-- <p> {{ pitch.user }}</p> -->
-
+    <a href="/pitch/{{blogs.id}}"> View blogs</a>
+    {% for comment in pitch.comment %}
+    <p>Comment:{{comment.comment}}</p>
+    
 {% endfor %}
-
+<p><a class="btn btn-light btn-xl sr-button" href="{{url_for('main.comment',id = blogs.id)}}"> Add comment here</a></p> 
+{% endfor %}
 
 
 <!-- {{ macro.displayBlogsList(blogs)}}   -->

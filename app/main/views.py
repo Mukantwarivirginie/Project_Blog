@@ -3,11 +3,16 @@ from flask_login import login_user,logout_user,login_required
 from flask import render_template,request,flash,redirect,url_for,abort
 from ..models import  User
 from flask_login import login_required,current_user
+from ..email import mail_message
+
+
+from .forms import UpdateProfile
 from . import main
-from .forms import  BlogForm
+from .forms import  BlogForm,SubscriptionForm
 from ..models import User,Post_blog
 from flask_login import login_user
 from .. import db,photos
+from ..request import get_quote
 
 
 
@@ -20,39 +25,117 @@ from .. import db,photos
 # Views
 @main.route('/')
 def index():
-      all_Post_blog=Post_blog .get_blogs()
+    all_blogs=Post_blog.get_blogs()
+
+    title = 'Home - Welcome to The best Movie Review Website Online'
 
 
 
-      title = 'Home - Welcome to The best Movie Review Website Online'
-
-
-
-      return render_template('index.html', title = title , all_Post_blog=all_Post_blog)
+    return render_template('index.html', title = title , all_blogs=all_blogs)
 
 
 @main.route('/newblogs/',methods = ['GET','POST'])
 @login_required
 def newblogs():
 
-    form = blogForm()
-  
-    if form.validate_on_submit():
-       
-        blogs= form.Post_blog.data
+    # form = blogForm()
+      form=SubscriptionForm()
+      if form.validate_on_submit():
+        name = form.name.data
+        email= form.email.data
+        new_subscriber=Subscription(name=name,email=email)
+        db.session.add(new_subscriber)
+        db.session.commit()
+        mail_message("Thans","email/welcome_user",new_subscriber.email,user=new_subscriber)
+        return redirect(url_for('main.index'))
+      quote=get_quote()
+      posts=Blogs.get_posts()
+      title="Home| Welcome to blog"
+      return render_template('index.html',title=title,quote=quote,posts=posts,subscription_form=form)
+        # blogs= form.Post_blog.data
 
         # Updated review instance
-        newblogs= Post_blog( Post_blog= blogs,user_id=current_user.id)
+      newblogs= Post_blog( Post_blog= blogs,user_id=current_user.id)
 
         # save review method
-        newblogs.save_blogs()
-        return redirect(url_for('.index',blogs = blogs))
-
+      newblogs.save_blogs()
+      return redirect(url_for('.index',blogs = blogs))
    
-    return render_template('newblogs.html',newblogs=form)
+    # return render_template('newblogs.html',newblogs=form)
+
+@main.route('/post/<int:id>')
+def single_post(id):
+    post=Post.query.filter_by(id=id).first()
+    comments=Comment.get_comments(id=id)
+    return render_template('single_post.html',post=post,comments=comments)   
 
 
+@main.route('/delete/comment/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def delete_comment(id):
+    comment=Comment.query.filter_by(id=id).first()
+ 
 
+    if comment is not None:
+       comment.delete_comment()
+       return redirect(url_for('main.index'))
+
+
+  
+@main.route('/delete/post/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def delete_post(id):
+    post=Post.query.filter_by(id=id).first()
+ 
+
+    if post is not None:
+       post.delete_post(id)
+       return redirect(url_for('main.index'))
+
+ 
+
+  
+@main.route('/post/new', methods = ['GET', 'POST'])
+@login_required
+def add_post():
+    form = AddPostForm()
+    
+    if form.validate_on_submit():
+        title = form.title.data
+
+        post= form.content.data
+        image=form.image.data
+
+        new_post = Post(content=post, title = title,image=image)
+        new_post.save_post()
+
+        subscribers=Subscription.query.all()
+        for subscriber in subscribers:
+           mail_message("New Post","email/send_email",subscriber.email,user=subscriber,post=new_post)
+
+        return redirect(url_for('main.index'))
+
+    
+
+    title = 'Add Post| MeBlog'    
+    return render_template('post.html', title = title, post_form = form)
+
+@main.route('/new/comment/<int:id>', methods = ['GET','POST'])
+def add_comment(id):
+  post=Post.query.filter_by(id=id).first()
+  if post is None:
+    abort(404)
+
+  form=CommentForm()
+  if form.validate_on_submit():
+     name=form.username.data
+     comment=form.comment.data
+     new_comment=Comment(content=comment ,post=post,username=name)
+     db.session.add(new_comment)  
+     db.session.commit() 
+     
+     return redirect(url_for('main.index'))
+  return render_template('comment.html', comment_form=form)
 
 
 
@@ -96,6 +179,27 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
