@@ -1,5 +1,7 @@
 {% extends 'base.html'%}  
 {% import 'macros.html' as macro%}
+{% import 'bootstrap/wtf.html' as wtf %}
+
 <!-- Styles block -->
 <!DOCTYPE html>
 <html>
@@ -40,7 +42,7 @@
 <p><a class="btn btn-light btn-xl sr-button" href="{{url_for('main.add_comment',id = blog.id)}}"> Add comment here</a></p> 
 {% endfor %}
    
-
+{{wtf.quick_form(form)}}
        
 
 

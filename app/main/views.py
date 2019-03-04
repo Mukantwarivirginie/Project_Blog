@@ -1,7 +1,7 @@
 
 from flask_login import login_user,logout_user,login_required
 from flask import render_template,request,flash,redirect,url_for,abort
-from ..models import  User,Comments
+from ..models import  User,Comments,subscription
 from flask_login import login_required,current_user
 from ..email import mail_message
 
@@ -23,15 +23,35 @@ from ..request import get_quote
 
 
 # Views
-@main.route('/')
+@main.route('/',methods = ['GET','POST'])
 def index():
     all_blogs=Post_blog.get_blogs()
-
+ 
     title = 'Home - Welcome to The best Movie Review Website Online'
+    # return render_template('index.html', title = title , )
+
+
+    form=SubscriptionForm()
+    if form.validate_on_submit():
+          name = form.name.data
+
+          email= form.email.data
+          new_subscriber=subscription(name=name,email=email)
+          db.session.add(new_subscriber)
+          db.session.commit()
+
+          mail_message("Thanks!","email/welcome_user",new_subscriber.email,user=new_subscriber)
+
+          return redirect(url_for('main.index'))
+    quote=get_quote()
+    posts=Post_blog.get_blogs()
+    title="Home| Welcome to blog"
+
+    return render_template('index.html',title=title,quote=quote,posts=posts,form=form,all_blogs=all_blogs)
+ 
 
 
 
-    return render_template('index.html', title = title , all_blogs=all_blogs)
 
 
 @main.route('/newblogs/',methods = ['GET','POST'])
@@ -62,6 +82,14 @@ def newblogs():
       return redirect(url_for('.index',blogs = blogs))
    
     # return render_template('newblogs.html',newblogs=form)
+
+
+
+
+
+
+
+
 
 @main.route('/post/<int:id>')
 def single_post(id):

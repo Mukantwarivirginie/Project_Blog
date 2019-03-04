@@ -42,7 +42,7 @@ class AddPostForm(FlaskForm):
 class CommentForm(FlaskForm):
    
    username = StringField('Enter your name',validators=[Required()])
-   comment = TextAreaField('pitch comment', validators=[Required()])
+   comment = TextAreaField('blog comment', validators=[Required()])
    submit = SubmitField('Submit')
 
 class UpdateProfile(FlaskForm):
@@ -58,3 +58,14 @@ class UpdatePostForm(FlaskForm):
     title=StringField('Title',validators = [Required()])
     content=TextAreaField('Content',validators = [Required()])
     submit=SubmitField('SUBMIT')
+
+
+
+
+
+# class SubscriptionForm(FlaskForm):
+
+    
+#    Subscription  = TextAreaField('Subscription ', validators=[Required()])
+#    submit = SubmitField('Submit')
+

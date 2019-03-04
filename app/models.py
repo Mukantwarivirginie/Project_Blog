@@ -90,8 +90,8 @@ class subscription(db.Model):
     __tablename__ = 'subsription'
 
     id = db.Column(db.Integer,primary_key = True)
-    Post_blog = db.Column(db.String(255))
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    name= db.Column(db.String(255))
+    email=db.Column(db.String(255))
   
 
 class Quote:
