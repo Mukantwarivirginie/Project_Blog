@@ -16,6 +16,8 @@
     <body>
      
 {% block content %}
+<h3>{{quote.content}}</h3>
+<p style="font-style='italic';">{{quote.author}}</p>
 <ul>
     <div class="container">
         <p> Pickup lines blogs</p>
@@ -30,6 +32,7 @@
         <P> blogs Promotion </P>
         <p>Blog promotion is a must if you want your work to be seen, shared, and and widely consumed.</p>
         <br><br>
+       
         <a href= "/post/new"> New blogs</a>
     </div>   
     {% for blog in all_blogs %}
