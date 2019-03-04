@@ -1,14 +1,14 @@
 
 from flask_login import login_user,logout_user,login_required
 from flask import render_template,request,flash,redirect,url_for,abort
-from ..models import  User
+from ..models import  User,Comments
 from flask_login import login_required,current_user
 from ..email import mail_message
 
 
 from .forms import UpdateProfile
 from . import main
-from .forms import  BlogForm,SubscriptionForm,AddPostForm
+from .forms import  BlogForm,SubscriptionForm,AddPostForm,CommentForm
 from ..models import User,Post_blog
 from flask_login import login_user
 from .. import db,photos
@@ -66,7 +66,7 @@ def newblogs():
 @main.route('/post/<int:id>')
 def single_post(id):
     post=Post.query.filter_by(id=id).first()
-    comments=Comment.get_comments(id=id)
+    comments=Comments.get_comments(id=id)
     return render_template('single_post.html',post=post,comments=comments)   
 
 
@@ -99,20 +99,21 @@ def add_post():
 
 @main.route('/new/comment/<int:id>', methods = ['GET','POST'])
 def add_comment(id):
-  post=Post.query.filter_by(id=id).first()
+  post= Post_blog.query.filter_by(id=id).first()
   if post is None:
     abort(404)
 
   form=CommentForm()
   if form.validate_on_submit():
-     name=form.username.data
      comment=form.comment.data
-     new_comment=Comment(content=comment ,post=post,username=name)
+     new_comment=Comments(comment=comment)
      db.session.add(new_comment)  
      db.session.commit() 
+
+  comment=Comments.query.filter_by(post_blog_id=id).all()   
      
-     return redirect(url_for('main.index'))
-  return render_template('comment.html', comment_form=form)
+  
+  return render_template('comment.html',comment=comment, comment_form=form)
 
 
 

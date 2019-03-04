@@ -30,19 +30,15 @@
         <br><br>
         <a href= "/post/new"> New blogs</a>
     </div>   
-
- 
-
-
-    <p>{{macro.displayBlogsList(post_blog)}}</p>
-
-   
- 
+    {% for blog in all_blogs %}
     
-
-
-
-    <a href=> View blogs</a>
+    <h2> {{ blog.post_blog}} </h2>
+    {% for comment in blog.comment %}
+    <p>Comment:{{comment.comment}}</p>
+    
+{% endfor %}
+<p><a class="btn btn-light btn-xl sr-button" href="{{url_for('main.add_comment',id = blog.id)}}"> Add comment here</a></p> 
+{% endfor %}
    
 
        
