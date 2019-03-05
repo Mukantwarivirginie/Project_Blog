@@ -14,27 +14,17 @@
         {% endblock %}
 
     <body>
-     
+     <p>Our Quotes</p>
 {% block content %}
 <h3>{{quote.content}}</h3>
-<p style="font-style='italic';">{{quote.author}}</p>
+<p style="font-style:'italic';">{{quote.author}}</p>
 <ul>
     <div class="container">
-        <p> Pickup lines blogs</p>
-        <p>Star Wars Pickup Lines.</p>
-        <hr>
-        <p> Product blogs</p>
-        <p>ProductPlan Blog .</p>
-        <hr>
-        <p> Interview blogs</p>
-        <p>It is Easiest to Start With Text Interviews</p>
-        <hr>
-        <P> blogs Promotion </P>
-        <p>Blog promotion is a must if you want your work to be seen, shared, and and widely consumed.</p>
-        <br><br>
+      
        
         <a href= "/post/new"> New blogs</a>
     </div>   
+    <hr>
     {% for blog in all_blogs %}
     
     <h2> {{ blog.post_blog}} </h2>
@@ -46,7 +36,8 @@
 <p><a class="btn btn-light btn-xl sr-button" href="{{url_for('main.update_post',id = blog.id)}}"> edit blog</a></p> 
 <p><a class="btn btn-light btn-xl sr-button" href="{{url_for('main.delete_post',id = blog.id)}}"> delete blog</a></p> 
 {% endfor %}
-   
+   <hr>
+   <h2>Subscription</h2>
 {{wtf.quick_form(form)}}
        
 
