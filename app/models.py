@@ -54,13 +54,16 @@ class Post_blog(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete_post(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @classmethod
     def get_blogs(id):
         blog = Post_blog.query.all()
         return blog
         
-        def delete_post(self,id):
-             comments = Comments.query.filter_by(id = id).all()
+       
         for comments in comments:
              db.session.delete(comment)
              db.session.commit()

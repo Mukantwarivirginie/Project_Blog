@@ -1,3 +1,7 @@
 body{
   background-color:darkgray;
 }
+a{
+  /* color: black; */
+  background-color: black
+}

@@ -55,17 +55,10 @@ class SubscriptionForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class UpdatePostForm(FlaskForm):
-    title=StringField('Title',validators = [Required()])
     content=TextAreaField('Content',validators = [Required()])
     submit=SubmitField('SUBMIT')
 
 
 
 
-
-# class SubscriptionForm(FlaskForm):
-
-    
-#    Subscription  = TextAreaField('Subscription ', validators=[Required()])
-#    submit = SubmitField('Submit')
 

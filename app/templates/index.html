@@ -43,6 +43,8 @@
     
 {% endfor %}
 <p><a class="btn btn-light btn-xl sr-button" href="{{url_for('main.add_comment',id = blog.id)}}"> Add comment here</a></p> 
+<p><a class="btn btn-light btn-xl sr-button" href="{{url_for('main.update_post',id = blog.id)}}"> edit blog</a></p> 
+<p><a class="btn btn-light btn-xl sr-button" href="{{url_for('main.delete_post',id = blog.id)}}"> delete blog</a></p> 
 {% endfor %}
    
 {{wtf.quick_form(form)}}

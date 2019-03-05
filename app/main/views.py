@@ -5,20 +5,13 @@ from ..models import  User,Comments,subscription
 from flask_login import login_required,current_user
 from ..email import mail_message
 
-
 from .forms import UpdateProfile
 from . import main
-from .forms import  BlogForm,SubscriptionForm,AddPostForm,CommentForm
+from .forms import  BlogForm,SubscriptionForm,AddPostForm,CommentForm,UpdatePostForm
 from ..models import User,Post_blog
 from flask_login import login_user
 from .. import db,photos
 from ..request import get_quote
-
-
-
-
-
-
 
 
 
@@ -50,10 +43,6 @@ def index():
     return render_template('index.html',title=title,quote=quote,posts=posts,form=form,all_blogs=all_blogs)
  
 
-
-
-
-
 @main.route('/newblogs/',methods = ['GET','POST'])
 @login_required
 def newblogs():
@@ -83,26 +72,11 @@ def newblogs():
    
     # return render_template('newblogs.html',newblogs=form)
 
-
-
-
-
-
-
-
-
 @main.route('/post/<int:id>')
 def single_post(id):
     post=Post.query.filter_by(id=id).first()
     comments=Comments.get_comments(id=id)
     return render_template('single_post.html',post=post,comments=comments)   
-
-
-
-
-
-
-
 
 @main.route('/delete/comment/<int:id>', methods = ['GET', 'POST'])
 @login_required
@@ -110,7 +84,6 @@ def delete_comment(id):
   form=CommentForm()
   comment=Comments.query.filter_by(id=id).first()
  
-
   if comment is not None:
      comment.delete_comment()
      return redirect(url_for('main.index'))
@@ -119,24 +92,30 @@ def delete_comment(id):
 @main.route('/delete/post/<int:id>', methods = ['GET', 'POST'])
 @login_required
 def delete_post(id):
-    post=Post.query.filter_by(id=id).first()
+    post=Post_blog.query.filter_by(id=id).first()
  
 
     if post is not None:
-       post.delete_post(id)
+       post.delete_post()
        return redirect(url_for('main.index'))
 
- 
+@main.route('/edit/post/<int:id>',methods= ['GET','POST'])
+@login_required
+def update_post(id):
+   post=Post_blog.query.filter_by(id=id).first()
+   if post is None:
+        abort(404)
 
+   form=UpdatePostForm()
+   if form.validate_on_submit():
+        #  post.title=form.title.data
+         post.post_blog=form.content.data
 
+         db.session.add(post)
+         db.session.commit()
 
-
-
-
-
-
-
-
+         return redirect(url_for('main.index'))
+   return render_template('update_post.html',form=form)
 
   
 @main.route('/post/new', methods = ['GET', 'POST'])
@@ -153,13 +132,10 @@ def add_post():
         new_post = Post_blog(post_blog=post_blog)
         new_post.save_blog()
 
-        
-       
-
+      
         return redirect(url_for('main.index'))
 
     
-
     title = 'Add Post| blogs'    
     return render_template('post.html', title = title, post_form = form)
 
@@ -209,8 +185,6 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)  
-
-
 
 
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
